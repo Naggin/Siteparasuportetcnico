@@ -49,14 +49,14 @@ export function Contato() {
     {
       icon: Mail,
       title: "E-mail",
-      content: "suporte@example.com",
-      link: "mailto:suporte@example.com",
+      content: "antoniocfjr@icloud.com",
+      link: "mailto:antoniocfjr@icloud.com",
     },
     {
       icon: Phone,
       title: "Telefone",
-      content: "+55 (11) 9999-9999",
-      link: "tel:+5511999999999",
+      content: "+55 (51) 98974-6959",
+      link: "tel:+5551989746959",
     },
     {
       icon: MapPin,
@@ -338,11 +338,11 @@ export function Contato() {
                   Para problemas críticos que necessitam atenção imediata, entre em contato via telefone:
                 </p>
                 <a
-                  href="tel:+5511999999999"
+                  href="tel:+5551989746959"
                   className="inline-flex items-center gap-2 bg-red-500 text-white px-5 py-2.5 rounded font-semibold hover:bg-red-400 transition-colors text-sm"
                 >
                   <Phone className="h-4 w-4" />
-                  +55 (11) 9999-9999
+                  +55 (51) 98974-6959
                 </a>
               </div>
             </div>
