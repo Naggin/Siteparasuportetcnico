@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+import { motion } from "motion/react";
 import {
   Monitor,
   Headphones,
@@ -22,7 +23,7 @@ export function Home() {
       icon: Headphones,
       title: "Consultoria Técnica",
       description:
-        "Orientação especializada para otimizar seus sistemas e infraestrutura.",
+        "Orientação especializada para otimizar os seus sistemas e infraestrutura.",
     },
     {
       icon: Shield,
@@ -34,7 +35,7 @@ export function Home() {
       icon: Zap,
       title: "Manutenção Preventiva",
       description:
-        "Mantenha seus equipamentos sempre em perfeito funcionamento.",
+        "Mantenha os seus equipamentos sempre em perfeito funcionamento.",
     },
   ];
 
@@ -47,16 +48,37 @@ export function Home() {
     "Relatório técnico detalhado",
   ];
 
+  // Variáveis de animação para os cartões de serviço (efeito cascata)
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 50 } },
+  };
+
   return (
     <div className="bg-gray-950">
       {/* Hero Section */}
-      <section className="relative bg-gray-950 text-white border-b border-gray-800">
+      <section className="relative bg-gray-950 text-white border-b border-gray-800 overflow-hidden">
         {/* Grid Pattern Background */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#1f2937_1px,transparent_1px),linear-gradient(to_bottom,#1f2937_1px,transparent_1px)] bg-[size:4rem_4rem] opacity-20"></div>
         
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-24 md:py-32">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="space-y-6">
+            <motion.div 
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              className="space-y-6"
+            >
               <div className="inline-flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/20 rounded px-3 py-1.5 text-sm font-mono text-emerald-400">
                 <Terminal className="h-3.5 w-3.5" />
                 <span>24/7 Online</span>
@@ -88,9 +110,14 @@ export function Home() {
                   Documentação
                 </Link>
               </div>
-            </div>
+            </motion.div>
 
-            <div className="relative">
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="relative"
+            >
               <div className="relative rounded border border-gray-800 overflow-hidden bg-gray-900">
                 <ImageWithFallback
                   src="https://images.unsplash.com/photo-1768633647910-7e6fb53e5b0f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx0ZWNobmljYWwlMjBzdXBwb3J0JTIwY29tcHV0ZXJ8ZW58MXx8fHwxNzczNjkwMzI5fDA&ixlib=rb-4.1.0&q=80&w=1080"
@@ -98,7 +125,7 @@ export function Home() {
                   className="w-full h-auto opacity-80"
                 />
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -106,20 +133,33 @@ export function Home() {
       {/* Services Section */}
       <section className="py-20 bg-gray-950 border-b border-gray-800">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mb-12">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            className="mb-12"
+          >
             <p className="text-emerald-400 font-mono text-sm mb-2">// Serviços</p>
             <h2 className="text-3xl md:text-4xl font-bold text-white">
               Soluções Técnicas
             </h2>
-          </div>
+          </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <motion.div 
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: "-50px" }}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+          >
             {services.map((service, index) => {
               const Icon = service.icon;
               return (
-                <div
+                <motion.div
+                  variants={itemVariants}
+                  whileHover={{ y: -5 }}
                   key={index}
-                  className="bg-gray-900 border border-gray-800 p-6 rounded hover:border-emerald-500/50 transition-colors group"
+                  className="bg-gray-900 border border-gray-800 p-6 rounded hover:border-emerald-500/50 transition-colors group cursor-default"
                 >
                   <div className="flex items-center justify-center w-12 h-12 bg-emerald-500/10 text-emerald-400 rounded mb-4 group-hover:bg-emerald-500/20 transition-colors">
                     <Icon className="h-6 w-6" />
@@ -128,10 +168,10 @@ export function Home() {
                     {service.title}
                   </h3>
                   <p className="text-gray-400 text-sm leading-relaxed">{service.description}</p>
-                </div>
+                </motion.div>
               );
             })}
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -139,7 +179,13 @@ export function Home() {
       <section className="py-20 bg-gray-950 border-b border-gray-800">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <div className="order-2 lg:order-1 relative">
+            <motion.div 
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="order-2 lg:order-1 relative"
+            >
               <div className="relative rounded border border-gray-800 overflow-hidden bg-gray-900">
                 <ImageWithFallback
                   src="https://images.unsplash.com/photo-1758882006111-3613bb4218f9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxyZW1vdGUlMjBhc3Npc3RhbmNlJTIwcHJvZmVzc2lvbmFsfGVufDF8fHx8MTc3MzY5MDMyOXww&ixlib=rb-4.1.0&q=80&w=1080"
@@ -147,15 +193,21 @@ export function Home() {
                   className="w-full h-auto opacity-80"
                 />
               </div>
-            </div>
+            </motion.div>
 
-            <div className="order-1 lg:order-2">
+            <motion.div 
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="order-1 lg:order-2"
+            >
               <p className="text-emerald-400 font-mono text-sm mb-2">// Diferenciais</p>
               <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
                 Suporte Profissional
               </h2>
               <p className="text-gray-400 mb-8 leading-relaxed">
-                Equipe técnica especializada com anos de experiência em infraestrutura de TI e suporte a sistemas corporativos.
+                Equipa técnica especializada com anos de experiência em infraestrutura de TI e suporte a sistemas corporativos.
               </p>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
@@ -174,7 +226,7 @@ export function Home() {
                 Solicitar Suporte
                 <ArrowRight className="h-4 w-4" />
               </Link>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -182,7 +234,13 @@ export function Home() {
       {/* CTA Section */}
       <section className="py-20 bg-gray-950">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="relative bg-gray-900 border border-gray-800 rounded p-12 overflow-hidden">
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="relative bg-gray-900 border border-gray-800 rounded p-12 overflow-hidden"
+          >
             <div className="absolute inset-0 bg-[linear-gradient(to_right,#1f2937_1px,transparent_1px),linear-gradient(to_bottom,#1f2937_1px,transparent_1px)] bg-[size:2rem_2rem] opacity-10"></div>
             
             <div className="relative text-center max-w-3xl mx-auto">
@@ -191,7 +249,7 @@ export function Home() {
                 Precisa de Suporte Imediato?
               </h2>
               <p className="text-gray-400 mb-8 text-lg">
-                Nossa equipe está disponível 24/7 para atender suas necessidades técnicas.
+                A nossa equipa está disponível 24/7 para atender as suas necessidades técnicas.
               </p>
               <Link
                 to="/contato"
@@ -201,7 +259,7 @@ export function Home() {
                 <ArrowRight className="h-5 w-5" />
               </Link>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
     </div>
