@@ -21,6 +21,9 @@ export function Contato() {
     mensagem: "",
   });
 
+  // Novo estado para controlar o botão durante o envio
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
@@ -33,17 +36,48 @@ export function Contato() {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
-    alert("Mensagem enviada com sucesso! Entraremos em contato em breve.");
-    setFormData({
-      nome: "",
-      email: "",
-      telefone: "",
-      assunto: "",
-      mensagem: "",
-    });
+    setIsSubmitting(true); // Muda o botão para "Enviando..."
+
+    try {
+      // Usando a API gratuita do FormSubmit
+      const response = await fetch("https://formsubmit.co/ajax/antoniocfjr@icloud.com", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify({
+          Nome: formData.nome,
+          Email: formData.email,
+          Telefone: formData.telefone,
+          Assunto: formData.assunto,
+          Mensagem: formData.mensagem,
+          // Esta variável oculta define o assunto do e-mail que vai chegar para você
+          _subject: `Novo Chamado Técnico: ${formData.assunto} - ${formData.nome}`
+        })
+      });
+
+      if (response.ok) {
+        alert("Mensagem enviada com sucesso! Entraremos em contato em breve.");
+        // Limpa o formulário após o sucesso
+        setFormData({
+          nome: "",
+          email: "",
+          telefone: "",
+          assunto: "",
+          mensagem: "",
+        });
+      } else {
+        alert("Erro ao enviar a mensagem. Tente novamente mais tarde.");
+      }
+    } catch (error) {
+      console.error("Erro no envio:", error);
+      alert("Erro ao conectar com o servidor. Verifique sua internet.");
+    } finally {
+      setIsSubmitting(false); // Volta o botão ao normal
+    }
   };
 
   const contactInfo = [
@@ -91,7 +125,6 @@ export function Contato() {
     },
   ];
 
-  // Variáveis de Animação
   const containerVariants = {
     hidden: { opacity: 0 },
     show: {
@@ -122,7 +155,7 @@ export function Contato() {
             Abrir Chamado
           </h1>
           <p className="text-gray-600 dark:text-gray-400 text-lg max-w-2xl transition-colors">
-            Entre em contacto com a nossa equipa técnica. Atendimento 24/7 para suporte emergencial.
+            Entre em contato com a nossa equipe técnica. Atendimento 24/7 para suporte emergencial.
           </p>
         </motion.div>
       </section>
@@ -338,13 +371,24 @@ export function Contato() {
               </div>
 
               <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
+                whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
                 type="submit"
-                className="w-full inline-flex items-center justify-center gap-2 bg-emerald-500 text-white dark:text-gray-950 px-6 py-3 rounded font-semibold hover:bg-emerald-600 dark:hover:bg-emerald-400 transition-colors"
+                disabled={isSubmitting}
+                className="w-full inline-flex items-center justify-center gap-2 bg-emerald-500 text-white dark:text-gray-950 px-6 py-3 rounded font-semibold hover:bg-emerald-600 dark:hover:bg-emerald-400 transition-colors disabled:opacity-70 disabled:cursor-not-allowed"
               >
-                <Send className="h-4 w-4" />
-                Abrir Chamado
+                {isSubmitting ? (
+                  <>
+                    {/* Ícone de Loading animado usando Tailwind */}
+                    <div className="h-4 w-4 border-2 border-white dark:border-gray-950 border-t-transparent rounded-full animate-spin"></div>
+                    Enviando...
+                  </>
+                ) : (
+                  <>
+                    <Send className="h-4 w-4" />
+                    Abrir Chamado
+                  </>
+                )}
               </motion.button>
             </form>
           </motion.div>
@@ -372,7 +416,7 @@ export function Contato() {
                   Suporte Emergencial 24/7
                 </h3>
                 <p className="text-red-700 dark:text-red-200 mb-4 text-sm leading-relaxed transition-colors">
-                  Para problemas críticos que necessitam atenção imediata, entre em contacto via telefone:
+                  Para problemas críticos que necessitam atenção imediata, entre em contato via telefone:
                 </p>
                 <a
                   href="tel:+5551989746959"
