@@ -170,24 +170,6 @@ export function Root() {
           </div>
         </div>
       </footer>
-      // Adicione isso no seu Root.tsx, perto do final, antes da div de fechamento
-import { Smartphone } from "lucide-react"; // Certifique-se de importar o ícone
-
-{/* Botão Flutuante do WhatsApp */}
-<a
-  href="https://wa.me/5551989746959?text=Ol%C3%A1!%20Preciso%20de%20suporte%20t%C3%A9cnico."
-  target="_blank"
-  rel="noopener noreferrer"
-  className="fixed bottom-6 right-6 z-50 p-4 bg-emerald-500 text-white rounded-full shadow-lg hover:bg-emerald-600 transition-colors duration-300"
-  aria-label="Falar no WhatsApp"
->
-  <Smartphone className="h-6 w-6" />
-  {/* Efeito de "ping" para chamar a atenção (opcional, usa Tailwind puro) */}
-  <span className="absolute -top-1 -right-1 flex h-3 w-3">
-    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-    <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
-  </span>
-</a>
     </div>
   );
 }
