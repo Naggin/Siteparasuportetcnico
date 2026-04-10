@@ -13,12 +13,10 @@ export function Root() {
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
 
-  const navigation = [
+const navigation = [
     { name: "Início", href: "/", icon: Monitor },
-    { name: "Manuais", href: "/manuais", icon: BookOpen },
     { name: "Contato", href: "/contato", icon: Phone },
   ];
-
   const isActive = (href: string) => {
     if (href === "/") {
       return location.pathname === "/";
