@@ -8,8 +8,11 @@ import {
   CheckCircle,
   ArrowRight,
   Terminal,
+  HelpCircle,
+  ChevronDown
 } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
+import * as Accordion from "@radix-ui/react-accordion";
 
 export function Home() {
   const services = [
@@ -48,6 +51,25 @@ export function Home() {
     "Relatório técnico detalhado",
   ];
 
+  const faqs = [
+    {
+      question: "Como funciona o suporte remoto?",
+      answer: "Utilizamos softwares seguros (como TeamViewer ou AnyDesk) para acessar o seu computador temporariamente, com a sua autorização, e resolver o problema enquanto você acompanha tudo pela tela."
+    },
+    {
+      question: "Vocês atendem finais de semana e feriados?",
+      answer: "Sim! Para emergências e chamados críticos, a nossa equipe está disponível 24 horas por dia, 7 dias por semana."
+    },
+    {
+      question: "Meu computador está muito lento. Conseguem resolver sem formatar?",
+      answer: "Na grande maioria dos casos, sim. Fazemos uma varredura completa de malwares, limpeza de arquivos temporários, otimização do registro e desativação de processos em segundo plano para restaurar a velocidade sem perder dados."
+    },
+    {
+      question: "Atendem empresas ou apenas clientes finais?",
+      answer: "Ambos. Temos planos mensais para a infraestrutura de pequenas e médias empresas e também realizamos atendimentos avulsos para clientes domésticos."
+    }
+  ];
+
   const containerVariants = {
     hidden: { opacity: 0 },
     show: {
@@ -67,7 +89,6 @@ export function Home() {
     <div className="bg-white dark:bg-gray-950 transition-colors duration-500">
       {/* Hero Section */}
       <section className="relative bg-white dark:bg-gray-950 text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-800 overflow-hidden transition-colors duration-500">
-        {/* Grid Pattern Background */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#e5e7eb_1px,transparent_1px),linear-gradient(to_bottom,#e5e7eb_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#1f2937_1px,transparent_1px),linear-gradient(to_bottom,#1f2937_1px,transparent_1px)] bg-[size:4rem_4rem] opacity-40 dark:opacity-20 transition-colors duration-500"></div>
         
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-24 md:py-32">
@@ -102,12 +123,7 @@ export function Home() {
                   Solicitar Atendimento
                   <ArrowRight className="h-4 w-4" />
                 </Link>
-                <Link
-                  to="/manuais"
-                  className="inline-flex items-center justify-center gap-2 bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white px-6 py-3 rounded font-semibold hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors border border-gray-200 dark:border-gray-700"
-                >
-                  Documentação
-                </Link>
+                {/* Botão de Manuais Removido */}
               </div>
             </motion.div>
 
@@ -206,7 +222,7 @@ export function Home() {
                 Suporte Profissional
               </h2>
               <p className="text-gray-600 dark:text-gray-400 mb-8 leading-relaxed transition-colors duration-500">
-                Equipa técnica especializada com anos de experiência em infraestrutura de TI e suporte a sistemas corporativos.
+                Equipe técnica especializada com anos de experiência em infraestrutura de TI e suporte a sistemas corporativos.
               </p>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
@@ -230,6 +246,50 @@ export function Home() {
         </div>
       </section>
 
+      {/* FAQ Animado Section */}
+      <section className="py-20 bg-gray-50 dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800 transition-colors duration-500">
+        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-10"
+          >
+            <div className="inline-flex items-center justify-center w-12 h-12 bg-emerald-100 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 rounded mb-4 transition-colors">
+              <HelpCircle className="h-6 w-6" />
+            </div>
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4 transition-colors">
+              Perguntas Frequentes
+            </h2>
+            <p className="text-gray-600 dark:text-gray-400">
+              Tire suas dúvidas rápidas antes de abrir um chamado.
+            </p>
+          </motion.div>
+
+          <Accordion.Root type="single" collapsible className="space-y-4">
+            {faqs.map((faq, index) => (
+              <Accordion.Item 
+                key={index} 
+                value={`item-${index}`}
+                className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg overflow-hidden transition-colors"
+              >
+                <Accordion.Header>
+                  <Accordion.Trigger className="w-full flex items-center justify-between p-6 text-left text-gray-900 dark:text-white font-medium hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors group">
+                    {faq.question}
+                    <ChevronDown className="h-5 w-5 text-gray-500 dark:text-gray-400 transition-transform duration-300 group-data-[state=open]:rotate-180" />
+                  </Accordion.Trigger>
+                </Accordion.Header>
+                <Accordion.Content className="overflow-hidden data-[state=closed]:animate-slideUp data-[state=open]:animate-slideDown">
+                  <div className="p-6 pt-0 text-gray-600 dark:text-gray-400 text-sm leading-relaxed border-t border-gray-100 dark:border-gray-800 transition-colors">
+                    {faq.answer}
+                  </div>
+                </Accordion.Content>
+              </Accordion.Item>
+            ))}
+          </Accordion.Root>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="py-20 bg-white dark:bg-gray-950 transition-colors duration-500">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -248,7 +308,7 @@ export function Home() {
                 Precisa de Suporte Imediato?
               </h2>
               <p className="text-gray-600 dark:text-gray-400 mb-8 text-lg transition-colors duration-500">
-                A nossa equipa está disponível 24/7 para atender as suas necessidades técnicas.
+                A nossa equipe está disponível 24/7 para atender as suas necessidades técnicas.
               </p>
               <Link
                 to="/contato"
