@@ -123,7 +123,6 @@ export function Home() {
                   Solicitar Atendimento
                   <ArrowRight className="h-4 w-4" />
                 </Link>
-                {/* Botão de Manuais Removido */}
               </div>
             </motion.div>
 
