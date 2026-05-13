@@ -112,16 +112,19 @@ export function Contato() {
       icon: MessageSquare,
       title: "Chat Online",
       description: "Atendimento em tempo real",
+      link: "#formulario",
     },
     {
       icon: Smartphone,
       title: "WhatsApp",
       description: "Suporte via mensagem",
+      link: "https://wa.me/5551989746959",
     },
     {
       icon: Video,
       title: "Acesso Remoto",
       description: "Assistência via TeamViewer/AnyDesk",
+      link: null,
     },
   ];
 
@@ -217,7 +220,7 @@ export function Contato() {
             </h2>
           </motion.div>
 
-          <motion.div 
+          <motion.div
             variants={containerVariants}
             initial="hidden"
             whileInView="show"
@@ -226,13 +229,8 @@ export function Contato() {
           >
             {supportMethods.map((method, index) => {
               const Icon = method.icon;
-              return (
-                <motion.div
-                  variants={itemVariants}
-                  whileHover={{ scale: 1.02 }}
-                  key={index}
-                  className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded p-6 hover:border-emerald-500/50 dark:hover:border-emerald-500/50 transition-colors duration-300 text-center"
-                >
+              const content = (
+                <>
                   <div className="inline-flex items-center justify-center w-12 h-12 bg-emerald-100 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 rounded mb-3 transition-colors">
                     <Icon className="h-6 w-6" />
                   </div>
@@ -240,6 +238,29 @@ export function Contato() {
                     {method.title}
                   </h3>
                   <p className="text-gray-600 dark:text-gray-400 text-sm transition-colors">{method.description}</p>
+                </>
+              );
+              return (
+                <motion.div
+                  variants={itemVariants}
+                  whileHover={{ scale: 1.02 }}
+                  key={index}
+                  className="transition-colors duration-300 text-center"
+                >
+                  {method.link ? (
+                    <a
+                      href={method.link}
+                      target={method.link.startsWith("http") ? "_blank" : undefined}
+                      rel={method.link.startsWith("http") ? "noopener noreferrer" : undefined}
+                      className="block bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded p-6 hover:border-emerald-500/50 dark:hover:border-emerald-500/50 transition-colors duration-300"
+                    >
+                      {content}
+                    </a>
+                  ) : (
+                    <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded p-6 transition-colors duration-300">
+                      {content}
+                    </div>
+                  )}
                 </motion.div>
               );
             })}
@@ -248,7 +269,7 @@ export function Contato() {
       </section>
 
       {/* Contact Form */}
-      <section className="py-12 bg-gray-50 dark:bg-gray-950 transition-colors duration-500">
+      <section id="formulario" className="py-12 bg-gray-50 dark:bg-gray-950 transition-colors duration-500">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <motion.div 
             initial={{ opacity: 0, y: 40 }}

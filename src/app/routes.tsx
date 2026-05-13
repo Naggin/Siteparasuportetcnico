@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router";
 import { Root } from "./components/Root";
 import { Home } from "./components/Home";
 import { Contato } from "./components/Contato";
+import { NotFound } from "./components/NotFound";
 
 export const router = createBrowserRouter([
   {
@@ -9,7 +10,8 @@ export const router = createBrowserRouter([
     Component: Root,
     children: [
       { index: true, Component: Home },
-       { path: "contato", Component: Contato },
+      { path: "contato", Component: Contato },
+      { path: "*", Component: NotFound },
     ],
   },
 ]);
