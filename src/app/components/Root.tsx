@@ -1,5 +1,5 @@
 import { Outlet, Link, useLocation } from "react-router";
-import { Menu, X, Monitor, Phone, Terminal, Sun, Moon } from "lucide-react";
+import { Menu, X, Monitor, Phone, Headphones, Sun, Moon } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import { motion } from "motion/react";
@@ -37,7 +37,7 @@ const navigation = [
           <div className="flex h-16 justify-between items-center">
             <Link to="/" className="flex items-center gap-2.5 group">
               <div className="inline-flex items-center justify-center w-9 h-9 bg-emerald-500/10 border border-emerald-500/20 rounded group-hover:bg-emerald-500/20 transition-colors">
-                <Terminal className="h-5 w-5 text-emerald-500 dark:text-emerald-400" />
+                <Headphones className="h-5 w-5 text-emerald-500 dark:text-emerald-400" />
               </div>
               <span className="text-lg font-semibold text-gray-900 dark:text-white transition-colors">
                 Suporte<span className="text-emerald-500 dark:text-emerald-400">TI</span>
@@ -157,7 +157,7 @@ const navigation = [
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="flex items-center gap-2">
-              <Terminal className="h-4 w-4 text-emerald-500 dark:text-emerald-400" />
+              <Headphones className="h-4 w-4 text-emerald-500 dark:text-emerald-400" />
               <p className="text-sm text-gray-500 dark:text-gray-400 font-mono">
                 © 2026 SuporteTI. Suporte técnico profissional.
               </p>

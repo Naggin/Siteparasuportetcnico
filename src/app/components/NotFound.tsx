@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import { Terminal, ArrowLeft } from "lucide-react";
+import { Headphones, ArrowLeft } from "lucide-react";
 import { motion } from "motion/react";
 
 export function NotFound() {
@@ -13,9 +13,9 @@ export function NotFound() {
         className="relative text-center px-4"
       >
         <div className="inline-flex items-center justify-center w-16 h-16 bg-emerald-500/10 border border-emerald-500/20 rounded mb-6">
-          <Terminal className="h-8 w-8 text-emerald-500 dark:text-emerald-400" />
+          <Headphones className="h-8 w-8 text-emerald-500 dark:text-emerald-400" />
         </div>
-        <p className="text-emerald-500 dark:text-emerald-400 font-mono text-sm mb-2">// erro 404</p>
+        <p className="text-emerald-500 dark:text-emerald-400 text-sm mb-2">SuporteTI</p>
         <h1 className="text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-4">
           Página não encontrada
         </h1>

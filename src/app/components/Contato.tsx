@@ -7,7 +7,6 @@ import {
   MessageSquare,
   Smartphone,
   Video,
-  Terminal,
 } from "lucide-react";
 import { useState } from "react";
 import { motion } from "motion/react";
@@ -415,7 +414,7 @@ export function Contato() {
             
             <div className="relative flex items-start gap-6">
               <div className="flex items-center justify-center w-12 h-12 bg-red-100 dark:bg-red-500/10 text-red-600 dark:text-red-400 rounded flex-shrink-0 border border-red-200 dark:border-red-900/50 transition-colors">
-                <Terminal className="h-6 w-6" />
+                <Phone className="h-6 w-6" />
               </div>
               <div className="flex-1">
                 <h3 className="text-xl font-semibold text-red-900 dark:text-white mb-2 transition-colors">

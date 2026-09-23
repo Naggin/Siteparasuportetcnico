@@ -7,7 +7,7 @@ import {
   Zap,
   CheckCircle,
   ArrowRight,
-  Terminal,
+  ClipboardList,
   HelpCircle,
   ChevronDown,
 } from "lucide-react";
@@ -80,12 +80,10 @@ export function Home() {
     { value: "BR", label: "Atendimento remoto" },
   ];
 
-  const ticketLines = [
-    { label: "chamado", value: "CHM-1842" },
-    { label: "técnico", value: "Rafael Lima" },
-    { label: "canal", value: "acesso remoto" },
-    { label: "status", value: "em atendimento" },
-    { label: "eta", value: "12 min" },
+  const ticketSteps = [
+    "Diagnóstico de lentidão",
+    "Limpeza da inicialização",
+    "Relatório enviado ao cliente",
   ];
 
   const containerVariants = {
@@ -169,28 +167,49 @@ export function Home() {
               transition={{ duration: 0.7, delay: 0.12 }}
               className="relative"
             >
-              <div className="overflow-hidden rounded-2xl border border-gray-200 bg-gray-950 shadow-2xl shadow-emerald-950/20 dark:border-gray-800">
-                <div className="flex items-center gap-2 border-b border-white/10 px-4 py-3">
-                  <span className="h-2.5 w-2.5 rounded-full bg-red-400/80" />
-                  <span className="h-2.5 w-2.5 rounded-full bg-amber-300/80" />
-                  <span className="h-2.5 w-2.5 rounded-full bg-emerald-400/80" />
-                  <span className="ml-2 font-mono text-xs text-gray-500">suporteti — sessão ativa</span>
-                </div>
-                <div className="space-y-4 p-6 font-mono text-sm">
-                  {ticketLines.map((line) => (
-                    <div key={line.label} className="flex items-baseline justify-between gap-4">
-                      <span className="text-gray-500">{line.label}</span>
-                      <span className={line.label === "status" ? "text-emerald-400" : "text-gray-100"}>
-                        {line.value}
-                      </span>
+              <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-xl shadow-gray-200/60 dark:border-gray-800 dark:bg-gray-900 dark:shadow-none">
+                <div className="flex items-start justify-between gap-4">
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-11 w-11 items-center justify-center rounded-full bg-emerald-500/15 text-emerald-700 dark:text-emerald-400">
+                      <Headphones className="h-5 w-5" />
                     </div>
-                  ))}
-                  <div className="mt-2 space-y-2 border-t border-white/10 pt-4 text-gray-400">
-                    <p><span className="text-emerald-400">›</span> diagnóstico de lentidão</p>
-                    <p><span className="text-emerald-400">›</span> limpeza de inicialização</p>
-                    <p><span className="text-emerald-400">›</span> relatório enviado ao cliente</p>
+                    <div>
+                      <p className="text-sm text-gray-500">Chamado #1842</p>
+                      <p className="font-semibold text-gray-950 dark:text-white">Computador lento</p>
+                    </div>
                   </div>
+                  <span className="rounded-full bg-emerald-500/15 px-3 py-1 text-sm font-medium text-emerald-700 dark:text-emerald-300">
+                    Em atendimento
+                  </span>
                 </div>
+
+                <dl className="mt-6 grid grid-cols-2 gap-4 border-t border-gray-200 pt-5 text-sm dark:border-gray-800">
+                  <div>
+                    <dt className="text-gray-500">Técnico</dt>
+                    <dd className="mt-1 font-medium text-gray-950 dark:text-white">Rafael Lima</dd>
+                  </div>
+                  <div>
+                    <dt className="text-gray-500">Canal</dt>
+                    <dd className="mt-1 font-medium text-gray-950 dark:text-white">Acesso remoto</dd>
+                  </div>
+                  <div>
+                    <dt className="text-gray-500">Previsão</dt>
+                    <dd className="mt-1 font-medium text-gray-950 dark:text-white">12 minutos</dd>
+                  </div>
+                  <div>
+                    <dt className="text-gray-500">Cliente</dt>
+                    <dd className="mt-1 font-medium text-gray-950 dark:text-white">Escritório local</dd>
+                  </div>
+                </dl>
+
+                <ul className="mt-5 space-y-2 border-t border-gray-200 pt-5 dark:border-gray-800">
+                  {ticketSteps.map((step) => (
+                    <li key={step} className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
+                      <CheckCircle className="h-4 w-4 shrink-0 text-emerald-500" />
+                      {step}
+                    </li>
+                  ))}
+                </ul>
               </div>
             </motion.div>
           </div>
@@ -279,9 +298,9 @@ export function Home() {
               viewport={{ once: true }}
               className="rounded-2xl border border-gray-200 bg-white p-6 dark:border-gray-800 dark:bg-gray-900"
             >
-              <div className="mb-5 flex items-center gap-2 font-mono text-xs text-gray-500">
-                <Terminal className="h-4 w-4 text-emerald-500" />
-                histórico do chamado
+              <div className="mb-5 flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-300">
+                <ClipboardList className="h-4 w-4 text-emerald-500" />
+                Andamento do atendimento
               </div>
               <ol className="space-y-4">
                 {[

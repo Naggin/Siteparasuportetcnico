@@ -3,22 +3,9 @@ import App from "./app/App.tsx";
 import "./styles/index.css";
 
 const easterEgg = `
-   .----------------------------.
-   |  ________________________  |
-   | |                        | |
-   | |  >_ Suporte T.I.       | |
-   | |  >_ Status: Online     | |
-   | |                        | |
-   | |________________________| |
-   |                            |
-   '----------------------------'
-               |  |
-               ====
-
-Opa, inspecionando o código? 👀💻
+SuporteTI — suporte técnico.
 
 Site de demonstração. Os nomes e telefones desta página são fictícios.
-
 `;
 
 // O %c permite que passemos CSS direto no console.log
