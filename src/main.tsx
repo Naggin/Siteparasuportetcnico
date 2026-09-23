@@ -17,9 +17,7 @@ const easterEgg = `
 
 Opa, inspecionando o código? 👀💻
 
-Se você curte fuçar nos bastidores e encontrou um bug, ou se 
-simplesmente precisa de uma infraestrutura de T.I. de respeito, 
-me chame no WhatsApp: +55 (51) 98974-6959.
+Site de demonstração. Os nomes e telefones desta página são fictícios.
 
 `;
 

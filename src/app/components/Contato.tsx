@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { motion } from "motion/react";
+import { contacts } from "../site";
 
 export function Contato() {
   const [formData, setFormData] = useState({
@@ -21,8 +22,8 @@ export function Contato() {
     mensagem: "",
   });
 
-  // Novo estado para controlar o botão durante o envio
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [sent, setSent] = useState(false);
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -36,67 +37,32 @@ export function Contato() {
     }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true); // Muda o botão para "Enviando..."
-
-    try {
-      // Usando a API gratuita do FormSubmit
-      const response = await fetch("https://formsubmit.co/ajax/antoniocfjr@icloud.com", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json"
-        },
-        body: JSON.stringify({
-          Nome: formData.nome,
-          Email: formData.email,
-          Telefone: formData.telefone,
-          Assunto: formData.assunto,
-          Mensagem: formData.mensagem,
-          // Esta variável oculta define o assunto do e-mail que vai chegar para você
-          _subject: `Novo Chamado Técnico: ${formData.assunto} - ${formData.nome}`
-        })
-      });
-
-      if (response.ok) {
-        alert("Mensagem enviada com sucesso! Entraremos em contato em breve.");
-        // Limpa o formulário após o sucesso
-        setFormData({
-          nome: "",
-          email: "",
-          telefone: "",
-          assunto: "",
-          mensagem: "",
-        });
-      } else {
-        alert("Erro ao enviar a mensagem. Tente novamente mais tarde.");
-      }
-    } catch (error) {
-      console.error("Erro no envio:", error);
-      alert("Erro ao conectar com o servidor. Verifique sua internet.");
-    } finally {
-      setIsSubmitting(false); // Volta o botão ao normal
-    }
+    setIsSubmitting(true);
+    window.setTimeout(() => {
+      setIsSubmitting(false);
+      setSent(true);
+    }, 500);
   };
 
   const contactInfo = [
     {
       icon: Mail,
       title: "E-mail",
-      content: "antoniocfjr@icloud.com",
-      link: "mailto:antoniocfjr@icloud.com",
+      content: contacts.email,
+      link: `mailto:${contacts.email}`,
     },
     {
       icon: Phone,
       title: "Telefone",
-      content: "+55 (51) 98974-6959",
-      link: "tel:+5551989746959",
+      content: contacts.phone,
+      link: null,
     },
     {
       icon: MapPin,
       title: "Localização",
-      content: "Novo Hamburgo, RS",
+      content: contacts.location,
       link: null,
     },
     {
@@ -117,8 +83,8 @@ export function Contato() {
     {
       icon: Smartphone,
       title: "WhatsApp",
-      description: "Suporte via mensagem",
-      link: "https://wa.me/5551989746959",
+      description: contacts.whatsapp,
+      link: null,
     },
     {
       icon: Video,
@@ -284,10 +250,25 @@ export function Contato() {
                 Enviar Solicitação
               </h2>
               <p className="text-gray-600 dark:text-gray-400 text-sm transition-colors">
-                Preencha os dados abaixo para abrir um chamado técnico
+                Preencha os dados abaixo para simular a abertura de um chamado.
               </p>
             </div>
 
+            {sent ? (
+              <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-6">
+                <p className="text-lg font-semibold text-gray-950 dark:text-white">Chamado registrado nesta página.</p>
+                <p className="mt-2 text-sm leading-relaxed text-gray-600 dark:text-gray-300">
+                  Nada foi enviado. Este formulário é uma demonstração e os contatos do site são fictícios.
+                </p>
+                <button
+                  type="button"
+                  onClick={() => setSent(false)}
+                  className="mt-5 inline-flex items-center gap-2 rounded-full bg-emerald-500 px-5 py-2.5 text-sm font-semibold text-gray-950"
+                >
+                  Abrir outro chamado
+                </button>
+              </div>
+            ) : (
             <form onSubmit={handleSubmit} className="space-y-5">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div>
@@ -387,7 +368,7 @@ export function Contato() {
                   className="mt-1 w-4 h-4 bg-gray-50 dark:bg-gray-950 border-gray-300 dark:border-gray-800 rounded text-emerald-500 focus:ring-emerald-500 transition-colors"
                 />
                 <label htmlFor="termos" className="text-sm text-gray-600 dark:text-gray-400 transition-colors">
-                  Autorizo o compartilhamento das informações fornecidas para abertura de chamado técnico *
+                  Entendi que este formulário é só uma demonstração *
                 </label>
               </div>
 
@@ -411,7 +392,11 @@ export function Contato() {
                   </>
                 )}
               </motion.button>
+              <p className="text-center text-xs text-gray-500">
+                Demonstração de portfólio. A mensagem fica só neste navegador.
+              </p>
             </form>
+            )}
           </motion.div>
         </div>
       </section>
@@ -439,13 +424,10 @@ export function Contato() {
                 <p className="text-red-700 dark:text-red-200 mb-4 text-sm leading-relaxed transition-colors">
                   Para problemas críticos que necessitam atenção imediata, entre em contato via telefone:
                 </p>
-                <a
-                  href="tel:+5551989746959"
-                  className="inline-flex items-center gap-2 bg-red-600 dark:bg-red-500 text-white px-5 py-2.5 rounded font-semibold hover:bg-red-700 dark:hover:bg-red-400 transition-colors text-sm"
-                >
+                <p className="inline-flex items-center gap-2 rounded bg-red-600 px-5 py-2.5 text-sm font-semibold text-white dark:bg-red-500">
                   <Phone className="h-4 w-4" />
-                  +55 (51) 98974-6959
-                </a>
+                  {contacts.phone}
+                </p>
               </div>
             </div>
           </motion.div>

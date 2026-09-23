@@ -1,5 +1,5 @@
 import { Outlet, Link, useLocation } from "react-router";
-import { Menu, X, Monitor, Phone, BookOpen, Terminal, Sun, Moon } from "lucide-react";
+import { Menu, X, Monitor, Phone, Terminal, Sun, Moon } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import { motion } from "motion/react";
